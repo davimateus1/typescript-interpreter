@@ -1,0 +1,11 @@
+# Arquivos gerados pelo TypeScript
+*.js
+*.js.map
+
+# Dependências instaladas via npm
+/node_modules
+
+# Arquivos gerados pelo editor
+.vscode/
+.idea/
+*.swp
