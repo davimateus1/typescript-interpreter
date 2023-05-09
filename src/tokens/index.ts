@@ -83,3 +83,51 @@ export class EOFToken extends Token {
     super("EOF", "");
   }
 }
+
+export class SemicolonToken extends Token {
+  constructor() {
+    super("SEMICOLON", ";");
+  }
+}
+
+export class LessThanToken extends Token {
+  constructor() {
+    super("LESS_THAN", "<");
+  }
+}
+
+export class GreaterThanToken extends Token {
+  constructor() {
+    super("GREATER_THAN", ">");
+  }
+}
+
+export class LessThanOrEqualToken extends Token {
+  constructor() {
+    super("LESS_THAN_OR_EQUAL", "<=");
+  }
+}
+
+export class GreaterThanOrEqualToken extends Token {
+  constructor() {
+    super("GREATER_THAN_OR_EQUAL", ">=");
+  }
+}
+
+export class NotEqualToken extends Token {
+  constructor() {
+    super("NOT_EQUAL", "!=");
+  }
+}
+
+export class DoubleAssignToken extends Token {
+  constructor() {
+    super("DOUBLE_ASSIGN", "==");
+  }
+}
+
+export class NotToken extends Token {
+  constructor() {
+    super("NOT", "!");
+  }
+}
