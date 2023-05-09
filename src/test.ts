@@ -1,6 +1,6 @@
-import { Lexer } from "./Lexical/lexer";
+import { Lexer } from "./lexical/lexer";
 
-const lexer = new Lexer("x=1+2");
+const lexer = new Lexer("x=(1+2)");
 
 let token = lexer.getNextToken();
 while (token.type !== "EOF") {
