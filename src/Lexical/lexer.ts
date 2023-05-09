@@ -37,7 +37,7 @@ export class Lexer {
   position: number;
   stack: string[];
   lastTokenType: string | null;
-  whitespace: RegExp = /\s/;
+  whitespace: RegExp;
 
   constructor(input: string) {
     this.input = input;
