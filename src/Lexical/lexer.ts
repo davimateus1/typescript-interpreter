@@ -32,19 +32,19 @@ import {
 } from "../errors";
 import { NotAllowed, isDigit, isLetter } from "../utils/functions";
 
-const WHITESPACE = /\s/;
-
 export class Lexer {
   input: string;
   position: number;
   stack: string[];
   lastTokenType: string | null;
+  whitespace: RegExp = /\s/;
 
   constructor(input: string) {
     this.input = input;
     this.position = 0;
     this.stack = [];
     this.lastTokenType = null;
+    this.whitespace = /\s/;
   }
 
   getNextToken(): Token {
@@ -57,12 +57,13 @@ export class Lexer {
       if (this.lastTokenType && NotAllowed.includes(this.lastTokenType)) {
         throw new InvalidCharacterError(this.input[this.position - 1]);
       }
+
       return new EOFToken();
     }
 
     let char = this.input[this.position];
 
-    if (WHITESPACE.test(char)) {
+    if (this.whitespace.test(char)) {
       this.position++;
       return this.getNextToken();
     }
