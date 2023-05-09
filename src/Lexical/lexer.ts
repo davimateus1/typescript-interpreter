@@ -1,36 +1,44 @@
 import { Token } from "./token";
 
 import {
-  OpenBraceToken,
-  CloseBraceToken,
-  OpenParenToken,
-  CloseParenToken,
-  OpenBracketToken,
-  CloseBracketToken,
-  PlusToken,
-  AssignToken,
-  MinusToken,
-  MultiplyToken,
-  DivideToken,
-  NumberToken,
-  IdentifierToken,
-  EOFToken,
-  DoubleAssignToken,
-  SemicolonToken,
-  GreaterThanOrEqualToken,
-  GreaterThanToken,
-  LessThanOrEqualToken,
-  LessThanToken,
-  NotEqualToken,
-  NotToken,
-} from "../tokens";
-
-import {
   InvalidCharacterError,
   UnclosedError,
   UnmatchedClosingError,
 } from "../errors";
-import { NotAllowed, isDigit, isLetter } from "../utils/functions";
+
+import { NotAllowed, Reserved, isDigit, isLetter } from "../utils";
+
+import {
+  EOFToken,
+  IdentifierToken,
+  NumberToken,
+  ReservedToken,
+} from "../tokens/others";
+
+import {
+  CloseBraceToken,
+  CloseBracketToken,
+  CloseParenToken,
+  OpenBraceToken,
+  OpenBracketToken,
+  OpenParenToken,
+  SemicolonToken,
+} from "../tokens/symbols";
+
+import {
+  AssignToken,
+  DivideToken,
+  DoubleAssignToken,
+  GreaterThanOrEqualToken,
+  GreaterThanToken,
+  LessThanOrEqualToken,
+  LessThanToken,
+  MinusToken,
+  MultiplyToken,
+  NotEqualToken,
+  NotToken,
+  PlusToken,
+} from "../tokens/operators";
 
 export class Lexer {
   input: string;
@@ -84,8 +92,14 @@ export class Lexer {
         value += char;
         char = this.input[++this.position];
       }
-      this.lastTokenType = "IDENTIFIER";
-      return new IdentifierToken(value);
+
+      if (Reserved.includes(value.toUpperCase())) {
+        this.lastTokenType = "RESERVED";
+        return new ReservedToken(value);
+      } else {
+        this.lastTokenType = "IDENTIFIER";
+        return new IdentifierToken(value);
+      }
     }
 
     if (char === "{") {
