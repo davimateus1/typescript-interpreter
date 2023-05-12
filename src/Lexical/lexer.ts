@@ -6,14 +6,21 @@ import {
   UnmatchedClosingError,
 } from "../errors";
 
-import { NotAllowed, Reserved, isDigit, isLetter } from "../utils";
+import {
+  FluxControl,
+  NotAllowed,
+  Conditionals,
+  isDigit,
+  isLetter,
+} from "../utils";
 
 import {
   EOFToken,
+  FluxControlToken,
   IdentifierToken,
   NumberToken,
-  ReservedToken,
-} from "../tokens/others";
+  ConditionalToken,
+} from "../tokens/general-tokens";
 
 import {
   CloseBraceToken,
@@ -93,9 +100,12 @@ export class Lexer {
         char = this.input[++this.position];
       }
 
-      if (Reserved.includes(value.toUpperCase())) {
+      if (Conditionals.includes(value.toUpperCase())) {
         this.lastTokenType = "RESERVED";
-        return new ReservedToken(value);
+        return new ConditionalToken(value);
+      } else if (FluxControl.includes(value.toUpperCase())) {
+        this.lastTokenType = "FLUX_CONTROL";
+        return new FluxControlToken(value);
       } else {
         this.lastTokenType = "IDENTIFIER";
         return new IdentifierToken(value);

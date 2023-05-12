@@ -12,9 +12,15 @@ export class IdentifierToken extends Token {
   }
 }
 
-export class ReservedToken extends Token {
+export class ConditionalToken extends Token {
   constructor(value: string) {
-    super("RESERVED", value);
+    super("CONDITIONAL_RESERVED", value);
+  }
+}
+
+export class FluxControlToken extends Token {
+  constructor(value: string) {
+    super("FLUX_CONTROL_RESERVED", value);
   }
 }
 

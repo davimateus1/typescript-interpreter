@@ -1,10 +1,10 @@
-export function isDigit(char: string): boolean {
+export const isDigit = (char: string): boolean => {
   return /\d/.test(char);
-}
+};
 
-export function isLetter(char: string): boolean {
+export const isLetter = (char: string): boolean => {
   return /[a-z]/i.test(char);
-}
+};
 
 export const NotAllowed = [
   "PLUS",
@@ -24,4 +24,14 @@ export const NotAllowed = [
   "OPEN_BRACKET",
 ];
 
-export const Reserved = ["IF", "ELSE", "WHILE", "FOR", "RETURN"];
+export const Conditionals = [
+  "DO",
+  "IF",
+  "ELSE",
+  "ELSE IF",
+  "WHILE",
+  "FOR",
+  "RETURN",
+];
+
+export const FluxControl = ["TRY", "CATCH", "THROW"];
