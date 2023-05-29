@@ -3,6 +3,7 @@ import { Token } from "./token";
 import {
   InvalidCharacterError,
   UnclosedError,
+  UndeclaredVariableError,
   UnmatchedClosingError,
 } from "../errors";
 
@@ -12,6 +13,7 @@ import {
   Conditionals,
   isDigit,
   isLetter,
+  Operators,
 } from "../utils";
 
 import {
@@ -20,6 +22,8 @@ import {
   IdentifierToken,
   NumberToken,
   ConditionalToken,
+  ConstKeywordToken,
+  ExceptionToken,
 } from "../tokens/general-tokens";
 
 import {
@@ -53,6 +57,7 @@ export class Lexer {
   stack: string[];
   lastTokenType: string | null;
   whitespace: RegExp;
+  identifiersArr: string[];
 
   constructor(input: string) {
     this.input = input;
@@ -60,6 +65,7 @@ export class Lexer {
     this.stack = [];
     this.lastTokenType = null;
     this.whitespace = /\s/;
+    this.identifiersArr = [];
   }
 
   getNextToken(): Token {
@@ -106,9 +112,25 @@ export class Lexer {
       } else if (FluxControl.includes(value.toUpperCase())) {
         this.lastTokenType = "FLUX_CONTROL";
         return new FluxControlToken(value);
+      } else if (value.toUpperCase() === "CONST") {
+        this.lastTokenType = "CONST_KEYWORD";
+        return new ConstKeywordToken();
+      } else if (value.toLowerCase() === "e") {
+        this.lastTokenType = "EXCEPTION";
+        return new ExceptionToken(value);
       } else {
-        this.lastTokenType = "IDENTIFIER";
-        return new IdentifierToken(value);
+        if (
+          this.lastTokenType !== "CONST_KEYWORD" &&
+          !Operators.includes(this.lastTokenType || "") &&
+          !this.identifiersArr.includes(value)
+        ) {
+          throw new UndeclaredVariableError(value);
+        } else {
+          this.lastTokenType = "IDENTIFIER";
+          this.identifiersArr.push(value);
+
+          return new IdentifierToken(value);
+        }
       }
     }
 

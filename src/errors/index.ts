@@ -21,3 +21,11 @@ export class InvalidCharacterError extends LexerError {
     super(`Invalid character: ${char}`);
   }
 }
+
+export class UndeclaredVariableError extends Error {
+  constructor(variable: string) {
+    const message = `Undeclared variable: ${variable}`;
+    super(message);
+    this.name = "UndeclaredVariableError";
+  }
+}

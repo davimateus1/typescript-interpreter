@@ -29,3 +29,15 @@ export class EOFToken extends Token {
     super("EOF", "");
   }
 }
+
+export class ConstKeywordToken extends Token {
+  constructor() {
+    super("CONST_KEYWORD", "CONST");
+  }
+}
+
+export class ExceptionToken extends Token {
+  constructor(value: string) {
+    super("EXCEPTION", value);
+  }
+}

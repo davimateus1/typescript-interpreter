@@ -34,4 +34,19 @@ export const Conditionals = [
   "RETURN",
 ];
 
+export const Operators = [
+  "PLUS",
+  "MINUS",
+  "MULTIPLY",
+  "DIVIDE",
+  "ASSIGN",
+  "LESS_THAN",
+  "GREATER_THAN",
+  "LESS_THAN_OR_EQUAL",
+  "GREATER_THAN_OR_EQUAL",
+  "DOUBLE_ASSIGN",
+  "NOT_EQUAL",
+  "EQUAL",
+];
+
 export const FluxControl = ["TRY", "CATCH", "THROW"];
